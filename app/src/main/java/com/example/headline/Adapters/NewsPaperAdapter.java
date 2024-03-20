@@ -1,6 +1,9 @@
 package com.example.headline.Adapters;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +15,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.headline.MainActivity;
 import com.example.headline.Models.NewsPapers;
+import com.example.headline.NewsActivity;
 import com.example.headline.R;
 
 import java.util.ArrayList;
@@ -41,12 +46,24 @@ public class NewsPaperAdapter extends RecyclerView.Adapter<NewsPaperAdapter.View
         holder.imageView.setImageResource(newsPaper.getImage());
         holder.textView.setText(newsPaper.getName());
 
-        switch (position){
-            case 0:
 
-                break;
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (position){
+                    case 2:
+                    case 6:
+                    case 4:
+                    case 5:
+                    case 3:
+                    case 0:
+                    case 1:
+                        sendIntent(newsPaper);
+                        break;
 
-        }
+                }
+            }
+        });
         
     }
 
@@ -65,6 +82,13 @@ public class NewsPaperAdapter extends RecyclerView.Adapter<NewsPaperAdapter.View
             textView = itemView.findViewById(R.id.news_name);
         }
 
+
+    }
+    public void sendIntent(NewsPapers a){
+        Intent intent = new Intent(context, NewsActivity.class);
+
+        intent.putExtra("link",a.getLink());
+        context.startActivity(intent);
 
     }
 }
